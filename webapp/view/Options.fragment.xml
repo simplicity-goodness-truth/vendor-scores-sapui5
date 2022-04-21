@@ -1,0 +1,26 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form">
+  <ResponsivePopover title="Options"
+  placement= "Bottom"
+  afterOpen= "onOpen">
+    <content>
+        <List>
+          <items>
+            <CustomListItem type="Active" press="onAscending">
+              <HBox alignItems="Center"
+                  justifyContent="Center"
+                  class="HBoxStyle">
+              <Label text="Ascendente" />
+              </HBox>
+            </CustomListItem>
+            <CustomListItem type="Active" press="onDescending">
+            <HBox alignItems="Center"
+                  justifyContent="Center"
+                  class="HBoxStyle">
+              <Label text="Descendente" />
+              </HBox>
+            </CustomListItem>
+          </items>
+        </List>
+    </content>
+  </ResponsivePopover>
+</core:FragmentDefinition>

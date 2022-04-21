@@ -1,0 +1,17 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" id="CommentDialog">
+	<Dialog id="commentDialog" title="{i18n>Comments}">
+		<VBox class="sapUiSmallMargin">
+			<f:SimpleForm id="SimpleFormDisplay_1" editable="false" layout="ResponsiveGridLayout" title="{i18n>commentsHint}" labelSpanXL="2"
+				labelSpanL="2" labelSpanM="3" labelSpanS="5" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0"
+				columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+				<f:content>
+					<TextArea id="__area0" cols="30" rows="8" placeholder="{i18n>provideCommentsOrLeaveEmpty}"/>
+				</f:content>
+			</f:SimpleForm>
+		</VBox>
+		<buttons>
+			<Button text="{i18n>Ok}" press="saveWithComment"/>
+			<Button text="{i18n>Cancel}" press="closeCommentDialog"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

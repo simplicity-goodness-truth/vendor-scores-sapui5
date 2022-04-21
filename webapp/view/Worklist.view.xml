@@ -1,0 +1,87 @@
+<mvc:View controllerName="ZVNDSCR.controller.Worklist" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.f.semantic"
+	xmlns:footerbar="sap.ushell.ui.footerbar" xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core">
+	<fb:FilterBar reset="onReset" showRestoreButton="true" showClearButton="true" search="onSearch" searchEnabled="false" id="mainFilterBar"
+		header="{i18n>selectSystemCompanyVendor}">
+		<fb:filterGroupItems>
+			<fb:FilterGroupItem groupName="tableFilters1" name="A" partOfCurrentVariant="true" visibleInFilterBar="true" label="{i18n>selectSystem}">
+				<fb:control>
+					<ComboBox id="systemSelector" width="100%" items="{ path: '/SystemSet', sorter: { path: 'SystemID', descending: false } }"
+						change="handleChangeSystem">
+						<core:Item key="{SystemID}" text="{SystemName}"/>
+					</ComboBox>
+				</fb:control>
+			</fb:FilterGroupItem>
+			<fb:FilterGroupItem groupName="tableFilters2" name="A" partOfCurrentVariant="true" visibleInFilterBar="true" label="{i18n>selectCompany}"
+				id="tableFilters2">
+				<fb:control>
+					<ComboBox id="companySelector" width="100%" items="{ path: '/DynamicCompaniesList', sorter: { path: 'CompanyCode', descending: false }}"
+						showSecondaryValues="true" change="handleChangeCompany">
+						<core:ListItem key="{CompanyName}" text="{CompanyCode}" additionalText="{CompanyName}"/>
+					</ComboBox>
+				</fb:control>
+			</fb:FilterGroupItem>
+			<fb:FilterGroupItem groupName="tableFilters3" name="A" partOfCurrentVariant="true" visibleInFilterBar="true" label="{i18n>selectVendor}"
+				id="tableFilters3">
+				<fb:control>
+					<ComboBox id="vendorSelector" width="100%" items="{ path: '/DynamicVendorsList', sorter: { path: 'VendorCode', descending: false }}"
+						showSecondaryValues="true" >
+						<core:ListItem key="{VendorCode}" text="{VendorName}" additionalText="{VendorCode}"/>
+					</ComboBox>
+				</fb:control>
+			</fb:FilterGroupItem>
+			<fb:FilterGroupItem groupName="tableFilters4" name="A" partOfCurrentVariant="true" visibleInFilterBar="true" label="{i18n>selectScoreRange}"
+				id="tableFilters4">
+				<fb:control>
+					<ComboBox id="scoreRangeSelector" width="100%" items="{ path: '/ScoreRanksSet', sorter: { path: 'RankName', descending: false }}"
+						showSecondaryValues="true">
+						<core:ListItem key="{Rank}" text="{RankName}" additionalText="{ScoreValueRange}"/>
+					</ComboBox>
+				</fb:control>
+			</fb:FilterGroupItem>
+		</fb:filterGroupItems>
+	</fb:FilterBar>
+	<semantic:SemanticPage id="page" headerPinnable="false" toggleHeaderOnTitleClick="false">
+		<semantic:content>
+			<Table id="table" width="auto" items="{ path: '/VendorSet', sorter: { path: 'VendorCode', descending: false } }"
+				noDataText="{worklistView>/tableNoDataText}" busyIndicatorDelay="{worklistView>/tableBusyDelay}" growing="true" growingScrollToLoad="true"
+				updateFinished="onUpdateFinished">
+				<headerToolbar>
+					<Toolbar>
+						<Title id="tableHeader"/>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://excel-attachment" press="onExportToExcel" id="exportToExcel" visible="false"/>
+					</Toolbar>
+				</headerToolbar>
+				<columns>
+					<Column id="vendorCode" width="30%">
+						<Text text="{i18n>vendorCode}"/>
+					</Column>
+					<Column id="pendingScoreSave" width="2%"></Column>
+					<Column id="vendorName" width="50%">
+						<Text text="{i18n>vendorName}"/>
+					</Column>
+					<Column id="vendorScore" width="18%">
+						<Text text="{i18n>vendorScore}"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem type="Navigation" press="onPress">
+						<cells>
+							<ObjectIdentifier title="{VendorCode}"/>
+						</cells>
+						<cells>
+							<core:Icon src="sap-icon://alert" color="#bd2106" visible="{= ${PendingScoreSave} === 'X' ? true : false }"
+								tooltip="{i18n>vendorPendingProcessExist}"/>
+						</cells>
+						<cells>
+							<ObjectIdentifier title="{VendorName}"/>
+						</cells>
+						<cells>
+							<ObjectIdentifier title="{Score}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</semantic:content>
+	</semantic:SemanticPage>
+</mvc:View>

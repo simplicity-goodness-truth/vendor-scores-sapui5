@@ -1,0 +1,12 @@
+tr[data-doctype='1']{
+  background: #DDE8F1!important;
+}
+tr[data-doctype='2']{
+  background: #DFDFDF!important;
+}
+tr[data-doctype='3']{
+  background: #f2f5d4!important;
+}
+tr[data-doctype='4']{
+  background: #d7f2fc!important;
+}

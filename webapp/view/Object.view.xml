@@ -1,0 +1,284 @@
+<mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.f.semantic" xmlns:footerbar="sap.ushell.ui.footerbar"
+	xmlns:core="sap.ui.core" controllerName="ZVNDSCR.controller.Object">
+	<semantic:SemanticPage id="page" headerPinnable="false" toggleHeaderOnTitleClick="false" busy="{objectView>/busy}" showFooter="true"
+		busyIndicatorDelay="{objectView>/delay}">
+		<semantic:titleHeading>
+			<ObjectHeader id="objectHeader" title="{VendorName}" backgroundDesign="Solid">
+				<ObjectAttribute xmlns="sap.m" title="{i18n>currentScore}" text="{Score}% {ScoreText}" id="currentScore"/>
+				<ObjectAttribute xmlns="sap.m" id="calculatedScore" title="{i18n>calculatedScore}"/>
+			</ObjectHeader>
+		</semantic:titleHeading>
+		<semantic:content>
+			<IconTabBar id="iconTabBar" class="sapUiResponsiveContentPadding">
+				<items>
+					<IconTabFilter id="iconTabBarFilter1" tooltip="{i18n>detailIconTabBarInfo}" text="{i18n>vendorDetails}">
+						<content>
+							<Table xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.m.semantic" xmlns:footerbar="sap.ushell.ui.footerbar" xmlns="sap.m"
+								id="VendorDetailsList" inset="false" visible="{= ${VendorDataReceived} ? true : false }">
+								<columns>
+									<Column width="30%"/>
+									<Column width="70%"/>
+								</columns>
+								<items>
+									<ColumnListItem>
+										<cells>
+											<Text text="{i18n>vendorCode}" width="100%"/>
+											<Text text="{VendorCode}" width="100%"/>
+										</cells>
+									</ColumnListItem>
+									<ColumnListItem>
+										<cells>
+											<Text text="{i18n>vendorName}" width="100%"/>
+											<Text text="{VendorName}" width="100%"/>
+										</cells>
+									</ColumnListItem>
+									<ColumnListItem>
+										<cells>
+											<Text text="{i18n>vendorPostingBlock}" width="100%"/>
+											<Text text="{= ${VendorPostingBlock} === 'X' ? ${i18n>Yes} : ${i18n>No}}" width="100%"/>
+										</cells>
+									</ColumnListItem>
+									<ColumnListItem>
+										<cells>
+											<Text text="{i18n>System}" width="100%"/>
+											<Text text="{System}" width="100%"/>
+										</cells>
+									</ColumnListItem>
+									<ColumnListItem>
+										<cells>
+											<Text text="{i18n>companyCode}" width="100%"/>
+											<Text text="{CompanyCode}" width="100%"/>
+										</cells>
+									</ColumnListItem>
+									<ColumnListItem>
+										<cells>
+											<Text text="{i18n>companyName}" width="100%"/>
+											<Text text="{CompanyName}" width="100%"/>
+										</cells>
+									</ColumnListItem>
+									<ColumnListItem>
+										<cells>
+											<Text text="{i18n>vendorPaymentBlockReason}" width="100%"/>
+											<Text text="{VendorPaymentBlockReason}" width="100%"/>
+										</cells>
+									</ColumnListItem>
+									<ColumnListItem>
+										<cells>
+											<Text text="{i18n>vendorPaymentDetails}" width="100%"/>
+											<Text text="{VendorPaymentMethods}" width="100%"/>
+										</cells>
+									</ColumnListItem>
+									<ColumnListItem>
+										<cells>
+											<Text text="{i18n>vendorNIFcode}" width="100%"/>
+											<Text text="{VendorTaxNumber}" width="100%"/>
+										</cells>
+									</ColumnListItem>
+									<ColumnListItem>
+										<cells>
+											<Text text="{i18n>vendorWithholdingTaxType}" width="100%"/>
+											<Text text="{VendorWithholdingTaxType}" width="100%"/>
+										</cells>
+									</ColumnListItem>
+									<ColumnListItem>
+										<cells>
+											<Text text="{i18n>vendorReconciliationAccount}" width="100%"/>
+											<Text text="{VendorReconcillAccount}" width="100%"/>
+										</cells>
+									</ColumnListItem>
+									<ColumnListItem>
+										<cells>
+											<Text text="{i18n>vendorBankData}" width="100%"/>
+											<Text text="{VendorBankCountry} {VendorBankNumber} {VendorBankAccount} {VendorBankAccountHolder}" width="100%"/>
+										</cells>
+									</ColumnListItem>
+									<ColumnListItem>
+										<cells>
+											<Text text="{i18n>vendorAddress}" width="100%"/>
+											<Text text="{VendorPostalCode} {VendorCountryKey} {VendorRegion} {VendorCity} {VendorStreetHouse}" width="100%"/>
+										</cells>
+									</ColumnListItem>
+									<ColumnListItem>
+										<cells>
+											<Text text="{i18n>vendorEmail}" width="100%"/>
+											<Text text="{VendorEmail}" width="100%"/>
+										</cells>
+									</ColumnListItem>
+									<ColumnListItem>
+										<cells>
+											<Text text="{i18n>vendorContactPersons}" width="100%"/>
+											<Text text="{VendorContactName}" width="100%"/>
+										</cells>
+									</ColumnListItem>
+									<ColumnListItem>
+										<cells>
+											<Text text="{i18n>vendorTelephone}" width="100%"/>
+											<Text text="{VendorTelephone}" width="100%"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+							<Table xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.m.semantic" xmlns:footerbar="sap.ushell.ui.footerbar" xmlns="sap.m" inset="false"
+								visible="{= ${VendorDataReceived} ? false : true }">
+								<columns>
+									<Column/>
+								</columns>
+								<items>
+									<ColumnListItem>
+										<cells>
+											<Text text="{i18n>vendorDataMissing}" width="100%"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+						</content>
+					</IconTabFilter>
+					<IconTabFilter id="iconTabBarFilter2" tooltip="{i18n>detailIconTabBarInfo}" text="{i18n>vendorDocumentsChecklist}">
+						<content>
+							<OverflowToolbar id="vendorScoringControls" visible="{= ${WeightChangePermitted} ? true : false }">
+								<ToggleButton id="activateWeightChange" text="{i18n>activateWeightChange}" type="Transparent" pressed="false"
+									press="onActivateWeightChangeChange" visible="{= ${PendingScoreSave} === 'X' ? false : true }"/>
+								<Button id="setScoresToInitialValues" text="{i18n>setScoresToInitialValues}" type="Transparent" press="setScoresToInitialValues"
+									visible="{= ${PendingScoreSave} === 'X' ? false : true }"/>
+								<ToolbarSpacer/>
+							</OverflowToolbar>
+							<Table xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.m.semantic" xmlns:footerbar="sap.ushell.ui.footerbar" xmlns="sap.m" inset="false"
+								visible="{= ${PendingScoreSave} === 'X' ? false : true }" items="{path: 'ValidationDocuments', sorter: {path: 'DocumentNumber'}}"
+								id="FilesValidator">
+								<columns>
+									<Column width="10%">
+										<Text text="{i18n>Number}"/>
+									</Column>
+									<Column width="53%">
+										<Text text="{i18n>Document}"/>
+									</Column>
+									<Column width="12%">
+										<Text text="{i18n>documentType}"/>
+									</Column>
+									<Column width="17%">
+										<Text text="{i18n>documentWeight}"/>
+									</Column>
+									<Column width="8%">
+										<Text text="{i18n>Valid}"/>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem detailPress="onSelectionChange">
+										<customData>
+											<core:CustomData key="doctype" value="{DocumentType}" writeToDom="true"/>
+										</customData>
+										<cells>
+											<Text text="{DocumentNumber}"/>
+											<Text text="{DocumentName}"/>
+											<Text text="{DocumentTypeName}"/>
+											<Input id="documentWeight" maxLength="6" enabled="false" value="{DocumentWeight}" description="%" liveChange="handleWeightChange"
+												submit="onSubmitNewWeight"/>
+											<Switch id="AttachmenListSwitch" change="_onAttachmentSwitchChange" state="false" type="AcceptReject" enabled="true"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+							<Table xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.m.semantic" xmlns:footerbar="sap.ushell.ui.footerbar" xmlns="sap.m" inset="false"
+								items="{path: 'ValidationDocuments', sorter: {path: 'DocumentNumber'}}" visible="{= ${PendingScoreSave} === 'X' ? true : false }"
+								id="FilesValidatorDisabled">
+								<columns>
+									<Column width="10%">
+										<Text text="{i18n>Number}"/>
+									</Column>
+									<Column width="53%">
+										<Text text="{i18n>Document}"/>
+									</Column>
+									<Column width="12%">
+										<Text text="{i18n>documentType}"/>
+									</Column>
+									<Column width="17%">
+										<Text text="{i18n>documentWeight}"/>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem detailPress="onSelectionChange">
+										<customData>
+											<core:CustomData key="doctype" value="{DocumentType}" writeToDom="true"/>
+										</customData>
+										<cells>
+											<Text text="{DocumentNumber}"/>
+											<Text text="{DocumentName}"/>
+											<Text text="{DocumentTypeName}"/>
+											<Input id="documentWeightDisabled" maxLength="6" enabled="false" value="{DocumentWeight}" description="%" liveChange="handleWeightChange"
+												submit="onSubmitNewWeight"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+						</content>
+					</IconTabFilter>
+					<IconTabFilter id="iconTabBarFilter3" tooltip="{i18n>detailIconTabBarAttachments}" text="{i18n>detailIconTabBarAttachments}">
+						<content>
+							<UploadCollection noDataText="{i18n>ATTACHMENT_NO_DATA_TEXT}" noDataDescription="Drop files here and press &quot;+&quot;."
+								id="attachmentCollection" items="{Attachments}" uploadComplete="onUploadComplete" change="onChange" uploadEnabled="true"
+								instantUpload="false" maximumFileSize="20" uploadButtonInvisible="false" maximumFilenameLength="50" filenameLengthExceed="filenameLengthExceed">
+								<items>
+									<UploadCollectionItem fileName="{fileName}" documentId="{documentId}" id="attachmentCollectionItem" visibleEdit="false" enableEdit="false"
+										url="{documentId}" mimeType="{mimeType}" press="_onFileNamePress" enableDelete="false" visibleDelete="false">
+										<attributes>
+											<ObjectAttribute id="uploadDate" text="{ path: 'uploadDate', type: 'sap.ui.model.type.DateTime', formatOptions: { pattern: 'dd.MM.yyyy' }}"/>
+											<ObjectAttribute id="userName" text="{userName}"/>
+											<ObjectAttribute id="fileSize" text="{fileSize} MB"/>
+										</attributes>
+									</UploadCollectionItem>
+								</items>
+							</UploadCollection>
+						</content>
+					</IconTabFilter>
+					<IconTabFilter id="iconTabBarFilter4" tooltip="{i18n>detailIconTabBarLog}" text="{i18n>detailIconTabBarLog}">
+						<content>
+							<Table xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.m.semantic" xmlns:footerbar="sap.ushell.ui.footerbar" xmlns="sap.m" inset="false"
+								items="{path: 'VendorScoringLogRecord'}" id="ScoringLog">
+								<columns>
+									<Column width="10%">
+										<Text text="{i18n>updateDate}"/>
+									</Column>
+									<Column width="10%">
+										<Text text="{i18n>updateTime}"/>
+									</Column>
+									<Column width="12%">
+										<Text text="{i18n>userName}"/>
+									</Column>
+									<Column width="6%">
+										<Text text="{i18n>Score}"/>
+									</Column>
+									<Column width="11%">
+										<Text text="{i18n>ScoreText}"/>
+									</Column>
+									<Column width="18%">
+										<Text text="{i18n>Comments}"/>
+									</Column>
+									<Column width="33%">
+										<Text text="{i18n>DocumentsList}"/>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem>
+										<cells>
+											<Text text="{UpdateDate}"/>
+											<Text text="{UpdateTime}"/>
+											<Text text="{UserID}/{UserName}"/>
+											<Text text="{Score}"/>
+											<Text text="{ScoreText}"/>
+											<Text text="{Comments}"/>
+											<Text text="{DocumentsList}"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+						</content>
+					</IconTabFilter>
+				</items>
+			</IconTabBar>
+		</semantic:content>
+		<semantic:positiveAction>
+			<semantic:PositiveAction id="saveScoreAndAttachments" text="{i18n>saveScoreAndAttachments}" press="onSaveScoreAndAttachments"
+				visible="{= ${PendingScoreSave} === 'X' ? false : true }"/>
+		</semantic:positiveAction>
+	</semantic:SemanticPage>
+</mvc:View>
